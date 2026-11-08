@@ -1,0 +1,6 @@
+node_modules/
+out/
+.remotion/
+remotion-tmp/
+*.mp4
+!public/**/*.mp4

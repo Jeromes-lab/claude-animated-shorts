@@ -19,6 +19,8 @@ Proven on **The Bridge That Fell for a Song**, a 67 s short about the 1831 Broug
 | `references/sheets/` | 20 contact sheets, one per reference short, 60 frames each (1,200 frames) |
 
 ## Install
+See **[SETUP.md](SETUP.md)** for the ready-made Remotion project in `studio/` and step-by-step local setup.
+
 1. Copy this folder to `~/.claude/skills/cartoon-3d-short/` (clone it there, or download the ZIP).
 2. You need [Remotion](https://www.remotion.dev/) with `@remotion/three`, plus Node, Python 3 and ffmpeg.
 3. In Claude Code, say: *"Use the cartoon short skill and make a short about …"*.
