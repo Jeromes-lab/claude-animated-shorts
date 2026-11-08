@@ -21,7 +21,7 @@ User rules that apply:
 - Voice: one steady tone.
 - Jokes are researched real facts.
 - Standard mix: music +3 dB, SFX -6 dB, voice unchanged.
-- Final export 2K vertical: 1440x2560, `--scale 1.3333`.
+- Final export 2K vertical: 1440x2560, `--scale 1.3333333333333333` (exactly 4/3: `1.3333` gives a 2559.94 px height and Remotion refuses to stitch).
 - Opus max verifies every check.
 - Save after every step.
 - "Just do it" once the script is approved.
@@ -73,7 +73,7 @@ User rules that apply:
    - Make side-by-sides against reference frames with `python scripts/sbs_sheet.py out.jpg --ours ... --ref ...`.
    - Send them to an Opus max verifier: 1-3 images, a ≤200-word verdict.
 10. **Final render.**
-    - `npx remotion render src/index.ts <Comp> out/<name>/video.mp4 --codec h264 --crf 16 --scale 1.3333`
+    - `npx remotion render src/index.ts <Comp> out/<name>/video.mp4 --codec h264 --crf 16 --scale 1.3333333333333333`
     - Mux with `-map 0:v:0 -map 1:a:0` (Remotion writes a silent audio track).
     - QA: `python scripts/short_qa.py final.mp4 out/<name>/qa shots.json` checks every frame for black, white, frozen and pop frames, plus loudness and sheets.
     - Fix anything it finds, then run a deep Opus audit.
@@ -141,6 +141,7 @@ lighting 5-6, ink 6, textures 5-6, characters 7, depth 6-7, composition 6-7 (fro
 5. Contracts between owners live in exported constants (e.g. `NOINK` layer from ink.ts, `dofAt`/`FOREGROUND` from story.ts, `LIGHTS`/`LOOK` from lights.ts). Changing a contract means telling every owner that reads it.
 
 ## Gotchas
+- **Blank headless frames** (sky colour only, Studio preview fine): @react-three/postprocessing 3.2 builds its composer one React update after Remotion advances R3F. Copy the `ComposerKick` component from `studio/src/videos/scorcher/Bridge.tsx` into every new short (it advances twice on rAF under delayRender).
 - Kenney nature-kit materials are teal: recolour them by material name in build.ts.
 - Cameras end up inside houses: the sight-line culler in build.ts/world.ts removes anything blocking any camera ray.
 - Ink in the same merged effect pass as DOF gets overwritten. Ink must be its own pass before the blur.
